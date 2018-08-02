@@ -1,6 +1,7 @@
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.urls import reverse
 
 from .models import Flight, Passenger
@@ -39,12 +40,17 @@ def book(request, flight_id):
 
     passenger.flights.add(flight)
 
-    message = EmailMessage(
+    html_content = render_to_string(
+        "flights/email.html",
+        {"passenger": passenger, "flight": flight}
+    )
+
+    message = EmailMultiAlternatives(
         subject = "Flight Confirmation",
         body = "Your flight has been confirmed",
         to = [address]
     )
-
+    message.attach_alternative(html_content, "text/html")
     message.send()
 
     return HttpResponseRedirect(reverse("flight", args=[flight_id]))
