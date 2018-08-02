@@ -28,6 +28,7 @@ Flight {{ flight.id }}
       <option value="{{ person.id }}">{{ person }}</option>
       {% endfor %}
     </select>
+    <input type="email" name="address" />
     <input type="submit" value="Book Flight" />
   </form>
   {% else %}

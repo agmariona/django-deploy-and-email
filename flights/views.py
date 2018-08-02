@@ -1,3 +1,4 @@
+from django.core.mail import EmailMessage
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -28,6 +29,7 @@ def book(request, flight_id):
         passenger_id = int(request.POST["passenger"])
         passenger = Passenger.objects.get(pk = passenger_id)
         flight = Flight.objects.get(pk = flight_id)
+        address = request.POST["address"]
     except KeyError:
         return render(request, "flights/error.html", {"message": "No selection."})
     except Passenger.DoesNotExist:
@@ -36,4 +38,13 @@ def book(request, flight_id):
         return render(request, "flights/error.html", {"message": "No flight."})
 
     passenger.flights.add(flight)
+
+    message = EmailMessage(
+        subject = "Flight Confirmation",
+        body = "Your flight has been confirmed",
+        to = [address]
+    )
+
+    message.send()
+
     return HttpResponseRedirect(reverse("flight", args=[flight_id]))
