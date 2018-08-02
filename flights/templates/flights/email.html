@@ -1,0 +1,15 @@
+<p>
+    {{ passenger.first }} {{passenger.last }},
+    You have successfully booked Flight {{ flight.id }}
+    The flight information is listed below.
+</p>
+
+<h1>Flight {{ flight.id }}</h1>
+
+<ul>
+    <li>Origin: {{ flight.origin }}</li>
+    <li>Destination: {{ flight.destination }}</li>
+    <li>Duration: {{ flight.duration }}</li>
+</ul>
+
+<p>Thank you for flying DjangoAir.</p>
