@@ -40,9 +40,10 @@ def book(request, flight_id):
 
     passenger.flights.add(flight)
 
+    url = request.build_absolute_uri(reverse('flight', args=(str(flight.id))))
     html_content = render_to_string(
         "flights/email.html",
-        {"passenger": passenger, "flight": flight}
+        {"passenger": passenger, "flight": flight, "url": url}
     )
 
     message = EmailMultiAlternatives(

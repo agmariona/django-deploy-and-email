@@ -1,8 +1,6 @@
-<p>
-    {{ passenger.first }} {{passenger.last }},
-    You have successfully booked Flight {{ flight.id }}
-    The flight information is listed below.
-</p>
+<p>{{ passenger.first }} {{passenger.last }},</p>
+<p>You have successfully booked Flight {{ flight.id }}</p>
+<p>The flight information is listed below.</p>
 
 <h1>Flight {{ flight.id }}</h1>
 
@@ -11,5 +9,7 @@
     <li>Destination: {{ flight.destination }}</li>
     <li>Duration: {{ flight.duration }}</li>
 </ul>
+
+<a href="{{ url }}">Click here to view your flight information online.</a>
 
 <p>Thank you for flying DjangoAir.</p>
